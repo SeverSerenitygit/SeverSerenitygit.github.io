@@ -3,13 +3,12 @@
     const sidebar = document.getElementById('sidebar');
     if (!sidebar) return;
 
-    let open = false;
+    // Read saved state, default to open on first visit
+    let open = localStorage.getItem('sidebarOpen') !== 'false';
 
-    // Create toggle button
     const btn = document.createElement('button');
     btn.id = 'sidebar-toggle';
     btn.setAttribute('aria-label', 'Toggle Sidebar');
-    btn.innerHTML = '☰';
     btn.style.cssText = [
       'position:fixed',
       'top:16px',
@@ -29,28 +28,28 @@
     ].join(';');
     document.body.appendChild(btn);
 
-    // Sidebar transition
     sidebar.style.setProperty('transition', 'transform 0.3s ease', 'important');
 
     function hide() {
       sidebar.style.setProperty('transform', 'translateX(-260px)', 'important');
       btn.innerHTML = '☰';
+      localStorage.setItem('sidebarOpen', 'false');
     }
 
     function show() {
       sidebar.style.setProperty('transform', 'translateX(0)', 'important');
       btn.innerHTML = '✕';
+      localStorage.setItem('sidebarOpen', 'true');
     }
 
-    // Start hidden
-    hide();
+    // Apply saved state immediately
+    open ? show() : hide();
 
     btn.addEventListener('click', function () {
       open = !open;
       open ? show() : hide();
     });
 
-    // Prevent Chirpy from overriding our transform
     let observing = true;
     new MutationObserver(function () {
       if (!observing) return;
