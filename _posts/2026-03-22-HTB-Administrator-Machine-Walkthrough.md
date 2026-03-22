@@ -92,7 +92,7 @@ netexec smb administrator.htb -u Olivia -p ichliebedich --users
 
 Nothing interesting here. Let’s run BloodHound. If you have not installed BloodHound yet, you can follow the steps I have shown in the Installing BloodHound section in this walkthrough:
 
-[HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
+[HTB Certified Machine Walkthrough](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
 
 I hope you are able to do that without any errors. Now let’s run BloodHound python.
 
@@ -367,8 +367,7 @@ pip install -r requirements.txt
 
 But to install the required packages we need pip. To use pip without damaging the system, we need to have a Python environment. I showed how to install and activate and deactivate the Python environment in this walkthrough. You can refer to this quickly.
 
-[**HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners**  
-*Welcome to the WhyWriteUps articles, where we explain every step we made and why we made it. I have been solving…*medium.com](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
+[HTB Certified Machine Walkthrough](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
 
 and execute this command:
 
@@ -474,7 +473,7 @@ To perform this attack, you must have control over an account that has the right
 
 We can perform this attack using secretsdump.py from Impacket. This walkthrough contains instructions for installing Impacket.
 
-[HTB Cicada Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d "https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d")[](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
+[HTB Cicada Machine Walkthrough](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
 
 ```bash
 secretsdump.py -outputfile administrator_hashes -just-dc administrator.htb/ethan@10.10.11.42
@@ -521,15 +520,15 @@ In this walkthrough we didn’t just compromise a machine but learned:
 
 If you liked this walkthrough, check out my WhyWriteUps series list.
 
-[The WhyWriteUps](https://medium.com/@SeverSerenity/list/7966f9dd91bb "https://medium.com/@SeverSerenity/list/7966f9dd91bb")[](https://medium.com/@SeverSerenity/list/7966f9dd91bb)
+[The WhyWriteUps](https://medium.com/@SeverSerenity/list/7966f9dd91bb)
 
 Or my latest walkthroughs
 
-[HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
+[HTB Certified Machine Walkthrough](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
 
-[HTB Cicada Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d "https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d")[](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
+[HTB Cicada Machine Walkthrough](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
 
-[HTB Driver Machine — walkthrough for beginners](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed "https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed")[](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed)
+[HTB Driver Machine Walkthrough](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed)
 
 If you have any questions about this box or in general, you can leave a comment.
 
