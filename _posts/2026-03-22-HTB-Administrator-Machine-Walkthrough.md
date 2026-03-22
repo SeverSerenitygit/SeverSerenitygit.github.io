@@ -1,4 +1,10 @@
-# HTB Administrator Machine Walkthrough | Easy HackTheBox Guide for Beginners
+---
+title: "HTB Administrator Machine Walkthrough | Easy HackTheBox Guide for Beginners"
+date: 2026-03-22
+categories: [The WhyWriteUps, CPTS Preparation Track]
+tags: [AD]
+---
+
 
 Welcome to the **WhyWriteUps** articles, where we explain every step we made and why we made it. I have been solving machines for quite a bit of time, and most of the walkthroughs I have ever read are just commands and I think that most of the people who are reading those walkthroughs do not understand the commands they are using, so I wanted to fix that. I want beginners to understand what they are doing and why they are doing it. | Hackthebox Administrator walkthrough
 
@@ -38,8 +44,6 @@ Breakdown of command:
 
 ![](https://cdn-images-1.medium.com/max/800/1*zZh1in86XIkArx6hGweY0g.png)
 
-Nmap scan
-
 Nmap revealed 25 open ports. Important ports are 21 for `FTP`, 135 for `RPC`, 445 for `SMB`, and 5985 for `WinRM`. This scan also revealed the host name: administrator.htb, so we will add this to our `/etc/hosts` file.
 
 ```txt
@@ -78,8 +82,6 @@ netexec smb administrator.htb -u Olivia -p ichliebedich --shares
 
 ![](https://cdn-images-1.medium.com/max/800/1*cXEzWjmyG6GzbooGqVn1nA.png)
 
-shares
-
 It looks like there are no non-default shares here. Now let’s enumerate users with `— users` argument which gives us all usernames, and their descriptions, which might contain passwords or other useful information.
 
 ```bash
@@ -88,12 +90,9 @@ netexec smb administrator.htb -u Olivia -p ichliebedich --users
 
 ![](https://cdn-images-1.medium.com/max/800/1*N_WVNSsatqfRGy4O7rZIww.png)
 
-users
-
 Nothing interesting here. Let’s run BloodHound. If you have not installed BloodHound yet, you can follow the steps I have shown in the Installing BloodHound section in this walkthrough:
 
-[**HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners**  
-*Welcome to the WhyWriteUps articles, where we explain every step we made and why we made it. I have been solving…*medium.com](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
+[HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
 
 I hope you are able to do that without any errors. Now let’s run BloodHound python.
 
@@ -121,8 +120,6 @@ Breakdown of command:
 
 ![](https://cdn-images-1.medium.com/max/800/1*UvH_R11r-dbScammx55LFA.png)
 
-running BloodHound
-
 As you can see, it only took 19 seconds for it to complete, and it gave us one zip file to upload to the BloodHound. Now I have already shown how to start the BloodHound and upload data and even analyze it, but let me show you again how to properly start BloodHound after setting up credentials.
 
 ```bash
@@ -142,15 +139,11 @@ This command will start the main BloodHound to analyze data, and you should ente
 
 ![](https://cdn-images-1.medium.com/max/800/1*Zep-eka9xvLEd0ULbM1Ftg.png)
 
-upload button
-
 Upload your zip file using this `Upload Data` button. After all the files are transformed, click `clear finished` and `click exit`. After that, we can start analyzing the data.
 
 If you have used BloodHound earlier and did not clear the data, you can do so by going to the Database info section and clicking:
 
 ![](https://cdn-images-1.medium.com/max/800/1*a9Raez4ulGwx0LTY3NaJPQ.png)
-
-cleaning database
 
 Click `Clear Database`— `Clear Database`— `Clear Database`.
 
@@ -158,15 +151,11 @@ Let’s enter our user `Olivia`, and it will show us the user. Click on it. Afte
 
 ![](https://cdn-images-1.medium.com/max/800/1*zkoblJEbAr29OwEhvSZs5Q.png)
 
-Outbound object control
-
 Go to the `Node Info` section, scroll down, and click on `First Degree Object Control` under `OutBound Object Control` section.
 
 First Degree Object Control = which AD objects your current account can directly control right now, based on ACL(Access Control List) permissions
 
 ![](https://cdn-images-1.medium.com/max/800/1*u8tjeEHS5hRJXCLpe9Bu8w.png)
-
-first target
 
 It revealed that we have GenericAll ACE over michael users. We can abuse this ACE with three techniques:
 
@@ -212,8 +201,6 @@ This command will not show us any results, so we will check if it worked using `
 
 ![](https://cdn-images-1.medium.com/max/800/1*bqE-lXfoEMZ-loOJpzfX1w.png)
 
-michael member of ?
-
 Connecting with `evil-winrm`.
 
 ```bash
@@ -226,8 +213,6 @@ It worked! There are no user flags here, so let’s check the BloodHound again o
 
 ![](https://cdn-images-1.medium.com/max/800/1*BvlFD0I4QEtWmU0iBGaFCA.png)
 
-benjamin user
-
 We can see that we have `ForceChangePassword` ACE over Benjamin. We will have to perform the same attack again but with different arguments.
 
 ```bash
@@ -238,15 +223,11 @@ Unfortunately, the benjamin user is not a member of `Remote Management Users`, m
 
 ![](https://cdn-images-1.medium.com/max/800/1*3wWoLgdpXgM2tWWx1xD3Ow.png)
 
-benjamin members of ?
-
 ```bash
 netexec smb 10.10.11.42 -u benjamin -p Password2
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*_A4MwBPBRaMmmZMHMTJwLg.png)
-
-success
 
 Now, we confirmed that the attack was successful and we changed the password. After that, I was stuck a bit, trying to see what `benjamin` user can do and what the members of `Share Moderators` can do, but could not find anything interesting, and I took a step back and looked at our nmap scan, and then I realized that `FTP` was open, and we should try the credentials we changed.
 
@@ -275,15 +256,13 @@ pwsafe Backup.psafe3
 
 ![](https://cdn-images-1.medium.com/max/800/1*hLrJ40dowT88hQjfGy9AYg.png)
 
-Password safe
-
 But as you can see, it’s password-protected. However, there is a way that we can find this Master Password. If the password is weak, to do so we will use `pwsafe2john`.
 
 ### File-encryption password cracking
 
 Let’s talk about how john can find a password for password-protected files like zip or the psafe that we will look into in this example. When I first saw john finding the password for a file-protected zip, I really could not understand how that works and when I asked my teacher about how that works, he did not know. That means understanding processes like this makes us better than some other hackers who do the same, but without understanding it, let’s take the example psafe here.
 
-When we set a password for the database file like psafe, it does not store the password inside and compares the input password. That would make it vulnerable, and we could find the password by reverse engineering no matter how strong the password is. Instead, when we set a password for the database file like psafe, the program itself will take some actions on this password. For example.
+When we set a password for the database file like psafe, it does not store the password inside and compare it to the input. That would make it vulnerable, and we could find the password by reverse engineering no matter how strong the password is. Instead, when we set a password for the database file like psafe, the program itself will take some actions on this password. For example.
 
 `salt` — Salt is some random strings of characters added to a password before hashing it. Salt makes it harder to find the original password.
 
@@ -293,9 +272,9 @@ The things are not static (the same), they are random and generated by the progr
 
 What is magic byte ?
 
-The magic byte is basically some text in the header (top) of a file determining what kind of file it is. For example, if it is zip, and then it is `50 4B 03 04`, or `PK…` in human-readable form, and when the file decrypts the data, it looks for this magic byte in the header of the file, if it founds then the password is correct and the data is successfully decrypted, if not then the password is incorrect and the data is not encrypted.
+The magic byte is basically some text in the header (top) of a file determining what kind of file it is. For example, if it is zip, and then it is `50 4B 03 04`, or `PK…` in human-readable form, and when the file decrypts the data, it looks for this magic byte in the header of the file, if it find then the password is correct and the data is successfully decrypted, if not then the password is incorrect and the data is not encrypted.
 
-So, now we only see how the file itself decrypts it. Now, doing this using `john` is just almost the same thing. When we use scripts like `pwsafe2john`, and give it file, it will look at the information about salt and iterations (it is accessible) and take the header (top of file) of encrypted data where the magic byte placed, and makes a hash of it, crackable by `john`, so what does `john` do is take the hash, the hash itself does contain information about salt and iterations, and also john requires wordlist, so it takes one password for example `password`, and hash it with salt which is used in the file and the iteration number to hash and the hash type, apply all the things basically and tries to decrypt the data, and if it founds the magic byte from the result, the password is correct if now then next password.
+So, now we only see how the file itself decrypts it. Now, doing this using `john` is just almost the same thing. When we use scripts like `pwsafe2john`, and give it file, it will look at the information about salt and iterations (it is accessible) and take the header (top of file) of encrypted data where the magic byte placed, and makes a hash of it, crackable by `john`, so what does `john` do is take the hash, the hash itself does contain information about salt and iterations, and also john requires wordlist, so it takes one password for example `password`, and hash it with salt which is used in the file and the iteration number to hash and the hash type, apply all the things basically and tries to decrypt the data, and if it find the magic byte from the result, the password is correct if not then next password.
 
 ### Cracking
 
@@ -306,8 +285,6 @@ pwsafe2john Backup,psafe3 > hash.txt
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*o0qCIq5bZ1rnpCITQGmCWg.png)
-
-creating hash
 
 Now let’s crack it with john. We will be using rockyou.txt wordlists for this hash, which you can install from here [Rockyou.txt wordlist](https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt).
 
@@ -325,8 +302,6 @@ Breakdown of command:
 
 ![](https://cdn-images-1.medium.com/max/800/1*vNkWJaZStwx81y2FrJArcw.png)
 
-cracked
-
 As you can see, we cracked it, but you might notice an extra argument `— pot=NONE`. We will use this option when we do not want to check the hash with the previously cracked hashes, because I did crack the hash before this walkthrough, but you do not have to do that if it is first time.
 
 We have got the password for this file. Let’s open it with this command.
@@ -339,33 +314,23 @@ enter the password
 
 ![](https://cdn-images-1.medium.com/max/800/1*o_OmwMp-D5-9y8gLV8Wjvw.png)
 
-the password
-
 Click okay, you will see three usernames and passwords.
 
 ![](https://cdn-images-1.medium.com/max/800/1*CUWPlcUxIkxacaRpg0z_gg.png)
-
-passwords
 
 Right-clicking on it will show us options for us like this.
 
 ![](https://cdn-images-1.medium.com/max/800/1*_UwshhfocH18FinQps_4bw.png)
 
-options
-
 Using these options, copy all usernames and passwords to a note app like `text editor`.
 
 ![](https://cdn-images-1.medium.com/max/800/1*EjtrzuwP7WSLLgstVpoDKQ.png)
-
-copied
 
 We have passwords for three users. Let’s check each of them on BloodHound.
 
 Checking emily user, I found that this user is a member of`Remote management users`.
 
 ![](https://cdn-images-1.medium.com/max/800/1*1x7hMUMyFP0JXx0ofaWwFQ.png)
-
-emily is member of ?
 
 We can connect over WinRM and grab the flag.
 
@@ -375,15 +340,11 @@ evil-winrm -i 10.10.11.42 -u emily -p UXLCI5iETUsIBoFVTj8yQFKoHjXmb
 
 ![](https://cdn-images-1.medium.com/max/800/1*Xm7dmINfZVzgQ6Ol3nfoYg.png)
 
-user.txt
-
 ### Privilege escalation
 
 Now looking back again on emily user on BloodHound, we will see that user `emily` has `GenericWrite` ACE (Access Control Entry) over ethan user.
 
 ![](https://cdn-images-1.medium.com/max/800/1*A_cKWNYZPHtriCxlMYctTg.png)
-
-ACE
 
 We can perform two types of attack on this ACE: kerberoasting or shadow credentials attack. Let’s first perform a kerberoasting attack. If we get luck, we will get a plain text password for user ethan. To do so we need `targetedkerberoast.py` script.
 
@@ -435,8 +396,6 @@ But if we execute this command, we will see this error with our time.
 
 ![](https://cdn-images-1.medium.com/max/800/1*hXGgLcMKcmHdT4iXOIIGaQ.png)
 
-error
-
 Meaning our time is not aligned with the active directory time. To fix this issue, we will use `ntpdate`, which we can install with this command if you have not installed it yet.
 
 ```bash
@@ -449,7 +408,7 @@ but we have service that keeps fixing our time even though we change it with `nt
 sudo ntpdate 10.10.11.42
 ```
 
-but because i use kali linux in virtual machine my host system services will effect it, fixing our time back again after about 5 seconds, so i used this command:
+but because I use Kali Linux in virtual machine my host system services will affect it, fixing our time back again after about 5 seconds, so i used this command:
 
 ```bash
 sudo ntpdate 10.10.11.42;python3 targetedKerberoast.py -v -d 'administrator.htb' -u 'emily' -p 'UXLCI5iETUsIBoFVTj8yQFKoHjXmb'
@@ -459,13 +418,9 @@ Combining two commands, make sure that the script will work immediately after fi
 
 ![](https://cdn-images-1.medium.com/max/800/1*H8PCq9kzkwNDR_17i182xg.png)
 
-hash
-
 As you can see, it worked successfully, and we got ethan user’s hash. It is etype 23 (tgs), which is written in the hash itself at the beginning, so let’s first save this hash into a file named hash and find the correct mode number for this type of hash in hashcat.
 
 ![](https://cdn-images-1.medium.com/max/800/1*D5yd29LZAcAnDxgRG5fPBw.png)
-
-kerberos hash types
 
 ```bash
 hashcat -h | grep "Kerberos"
@@ -482,8 +437,6 @@ Breakdown of command
 And we got a result from here. We are going to pick 13100 because it is kerberos etype 23, and it is also TGS-REP. Looking back at our hash, we will see the same thing.
 
 ![](https://cdn-images-1.medium.com/max/800/1*PUVkdo1zzTEcfLEDHvpWrA.png)
-
-the hash type
 
 now let’s crack it!
 
@@ -505,15 +458,9 @@ and we got the password
 
 ![](https://cdn-images-1.medium.com/max/800/1*v4W4w-suarximsvOehunIw.png)
 
-password
-
 `limpbizkit` — is a password for the user `ethan`, let’s check what things can user `ethan` can do, checking on `First Degree Object Control` we will see that we can perform a few actions in this domain
 
 ![](https://cdn-images-1.medium.com/max/800/1*VgvhiE2Row8HfJE8eG0PXA.png)
-
-DCSync ACE
-
-including DCSync
 
 ### What is DCSync and How Does it Work?
 
@@ -527,8 +474,7 @@ To perform this attack, you must have control over an account that has the right
 
 We can perform this attack using secretsdump.py from Impacket. This walkthrough contains instructions for installing Impacket.
 
-[**HTB Cicada Machine Walkthrough | Easy HackTheBox Guide for Beginners**  
-*Welcome to the WhyWriteUps articles, where we explain every step we made and why we made it. I have been solving…*medium.com](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d "https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d")[](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
+[HTB Cicada Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d "https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d")[](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
 
 ```bash
 secretsdump.py -outputfile administrator_hashes -just-dc administrator.htb/ethan@10.10.11.42
@@ -546,8 +492,6 @@ Breakdown of command:
 
 ![](https://cdn-images-1.medium.com/max/800/1*OPiqZsK1lbpmbAKogVhCuA.png)
 
-dumping
-
 As you can see, we dumped the administrator hash. Now let’s connect over `evil-winrm`.
 
 ```bash
@@ -557,8 +501,6 @@ evil-winrm -i administrator.htb -u administrator -H 3dc553ce4b9fd20bd016e098d2d2
 Now, we can read the `root.txt` from the desktop of administrator
 
 ![](https://cdn-images-1.medium.com/max/800/1*bHr2mQoEYPScDaU1ViyA2Q.png)
-
-root.txt
 
 ### Cleaning
 
@@ -579,19 +521,15 @@ In this walkthrough we didn’t just compromise a machine but learned:
 
 If you liked this walkthrough, check out my WhyWriteUps series list.
 
-[**The WhyWriteUps**  
-*Beginner-friendly walkthroughs that explain not just how to hack, but why each step matters. CTFs, HTB, and infosec…*medium.com](https://medium.com/@SeverSerenity/list/7966f9dd91bb "https://medium.com/@SeverSerenity/list/7966f9dd91bb")[](https://medium.com/@SeverSerenity/list/7966f9dd91bb)
+[The WhyWriteUps](https://medium.com/@SeverSerenity/list/7966f9dd91bb "https://medium.com/@SeverSerenity/list/7966f9dd91bb")[](https://medium.com/@SeverSerenity/list/7966f9dd91bb)
 
 Or my latest walkthroughs
 
-[**HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners**  
-*Welcome to the WhyWriteUps articles, where we explain every step we made and why we made it. I have been solving…*medium.com](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
+[HTB Certified Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9 "https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9")[](https://medium.com/@SeverSerenity/htb-certified-machine-walkthrough-easy-hackthebox-guide-for-beginners-bdcd078225e9)
 
-[**HTB Cicada Machine Walkthrough | Easy HackTheBox Guide for Beginners**  
-*Welcome to the WhyWriteUps articles, where we explain every step we made and why we made it. I have been solving…*medium.com](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d "https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d")[](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
+[HTB Cicada Machine Walkthrough | Easy HackTheBox Guide for Beginners](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d "https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d")[](https://medium.com/@SeverSerenity/htb-cicada-machine-walkthrough-easy-hackthebox-guide-for-beginners-76e7bd9b5a1d)
 
-[**HTB Driver Machine — walkthrough for beginners**  
-*Welcome to the WhyWriteUps articles, where we explain every step we made and why we made it. I have been solving…*medium.com](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed "https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed")[](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed)
+[HTB Driver Machine — walkthrough for beginners](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed "https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed")[](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed)
 
 If you have any questions about this box or in general, you can leave a comment.
 
@@ -604,5 +542,3 @@ Learn. Hack. Share.
 ━━━━━━━━━━━━━━
 
 By [SeverSerenity](https://medium.com/@SeverSerenity) on [August 19, 2025](https://medium.com/p/f8273a004044).
-
-[Canonical link](https://medium.com/@SeverSerenity/htb-administrator-machine-walkthrough-easy-hackthebox-guide-for-beginners-f8273a004044)
