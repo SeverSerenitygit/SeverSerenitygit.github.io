@@ -530,7 +530,7 @@ Or my latest walkthroughs
 
 [HTB Driver Machine Walkthrough](https://medium.com/@SeverSerenity/htb-driver-machine-walkthrough-for-beginners-72923a382eed)
 
-If you have any questions about this box or in general, you can leave a comment.
+If you have any questions about this box or in general, Email me at `serenitysever@gmail.com`.
 
 *This write-up is part of my *WhyWriteUps* series — where I share not only the steps I took, but the lessons I learned along the way.*  
 If you enjoyed this walkthrough of **HTB Administrator**, stick around for more boxes and stories. We all start somewhere — this is just the beginning.
