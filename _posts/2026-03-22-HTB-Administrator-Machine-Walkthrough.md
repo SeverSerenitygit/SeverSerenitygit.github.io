@@ -1,8 +1,8 @@
 ---
 title: "HTB Administrator Machine Walkthrough | Easy HackTheBox Guide for Beginners"
 date: 2026-03-22
-categories: [The WhyWriteUps, CPTS Preparation Track]
-tags: [AD]
+categories: [The WhyWriteUps]
+tags: [AD, CPTS Preparation Track]
 ---
 
 
