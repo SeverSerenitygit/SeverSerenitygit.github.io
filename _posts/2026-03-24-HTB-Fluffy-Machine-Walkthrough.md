@@ -283,7 +283,11 @@ Breakdown of command:
 
 ![](https://cdn-images-1.medium.com/max/800/1*Gg64V-6NepQujkyKKw6-jg.png)
 
-As you can see, we confirmed that the user is now a member of `Service Accounts`. We can now perform a shadow credentials attack on the `winrm_svc` user.
+As you can see, we confirmed that the user is now a member of `Service Accounts`. 
+
+## Shadow Credentials Attack
+
+We can now perform a shadow credentials attack on the `winrm_svc` user.
 
 To do so, we will be using `certipy-ad` which I have shown how to install in this walkthrough:
 
