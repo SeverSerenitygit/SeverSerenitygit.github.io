@@ -18,3 +18,4 @@ This site is where I document my walkthroughs, research, and notes. Mostly for m
 ## Links
 - [HackTheBox Profile](https://app.hackthebox.com/users/2144260)
 - [GitHub](https://github.com/SeverSerenitygit)
+- [Medium](https://medium.com/@SeverSerenity)
