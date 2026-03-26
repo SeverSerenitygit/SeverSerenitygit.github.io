@@ -314,6 +314,7 @@ The flag is elsewhere.  Look deeper.
 
 the flag is hidden in `hm.txt` itself, Basically NTFS Alternate Data Streams (ADS) let you hide data inside a file by attaching it as a stream — like `file.txt:hiddendata`. To see them:
 
+
 ```cmd
 C:\Users\Administrator\Desktop> dir /r
 
@@ -322,6 +323,7 @@ C:\Users\Administrator\Desktop> dir /r
 12/24/2017  03:51 AM                36 hm.txt
                                     34 hm.txt:root.txt:$DATA
 ```
+
 
 we can see the `root.txt` now, we can read the file using this command:
 
