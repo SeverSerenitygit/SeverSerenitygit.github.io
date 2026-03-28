@@ -271,8 +271,8 @@ daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 
 We are successfully able to read files from the system, let's gather some information about how the website process is started by checking `/proc/self/cmdline` 
 
->[!note]
->`/proc` is a virtual filesystem in Linux - it doesn't actually exist on disk, it's created in memory by the kernel at boot time. It's essentially a window into the kernel - the kernel exposes information about running processes and system state as if they were regular files you can just cat or read, and `/self` symlink to the current process's own directory.
+> `/proc` is a virtual filesystem in Linux - it doesn't actually exist on disk, it's created in memory by the kernel at boot time. It's essentially a window into the kernel - the kernel exposes information about running processes and system state as if they were regular files you can just cat or read, and `/self` symlink to the current process's own directory.
+{: .prompt-info}
 
 ```bash
 $curl http://preprod-marketing.trick.htb/index.php?page=....//....//....//....//....//....//proc/self/cmdline -o cmdline.txt # -o saves the result to a file
@@ -432,5 +432,8 @@ Which executes binary with its SUID privileges.
 This topic is covered in [Linux Privilege Escalation -> Sudo Rights Abuse](https://academy.hackthebox.com/app/module/51/section/471) while it is not exactly this case, we have to get creative when we come across privilege escalation techniques like this because we can't remember all the combinations, we have to enumerate, understand the logic, and exploit it.
 
 
-
+━━━━━━━━━━━━━━  
+**WhyWriteUps**  
+Learn. Hack. Share.  
+━━━━━━━━━━━━━━
 
