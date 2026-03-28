@@ -29,7 +29,7 @@ sudo nmap 10.129.9.171 -sV -sC -p- -oA Jeeves -min-rate=5000
 
 Breakdown of the command:
 
-`nmap 10.129.9.171` - providing IP address of the target
+`nmap 10.129.9.171` - providing IP address of the target.
 
 `-sV -sC` - Tells `nmap` to run service version enumeration and also other default scripts.
 
