@@ -44,6 +44,9 @@ Breakdown of the command:
 > [!TIP]
 > In some of the instances, the `Jetty` might not show up in 50000 port, in that case try to reset the machine.
 
+> In some of the instances, the `Jetty` might not show up in 50000 port, in that case try to reset the machine.
+{: .prompt-tip}
+
 Trying anonymous or guest access in SMB fails.
 
 ![](assets/img/Jeeves-HTTP-80.png)
@@ -154,8 +157,8 @@ OS Version:                10.0.10586 N/A Build 10586
 
 `JuicyPotato` effected Versions before `1803` in Windows 10 while `PrintSpoofer` can be used to exploit versions above, we can see that the version is `10.0.10586` which maps to `1511` meaning it is vulnerable to `JuicyPotato` 
 
->[!note]
->Don't confuse yourself that those two are distinct misconfiguration, they are exploiting the same thing but different versions require different exploit.
+> Don't confuse yourself that those two are distinct misconfiguration, they are exploiting the same thing but different versions require different exploit.
+{: .prompt-tip}
 
 Now let's download [JuicyPotato.exe](https://github.com/itm4n/PrintSpoofer/releases/tag/v1.0) for exploitation and [nc.exe](https://github.com/int0x33/nc.exe/) to get `SYSTEM` reverse shell, after downloading we are going to host them with this command:
 
