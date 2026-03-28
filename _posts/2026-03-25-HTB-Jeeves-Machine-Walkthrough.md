@@ -41,9 +41,6 @@ Breakdown of the command:
 
 ![](assets/img/Jeeves-nmap.png)
 
-> [!TIP]
-> In some of the instances, the `Jetty` might not show up in 50000 port, in that case try to reset the machine.
-
 > In some of the instances, the `Jetty` might not show up in 50000 port, in that case try to reset the machine.
 {: .prompt-tip}
 
