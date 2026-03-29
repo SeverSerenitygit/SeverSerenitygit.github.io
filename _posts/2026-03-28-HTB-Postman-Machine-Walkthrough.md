@@ -1,6 +1,6 @@
 ---
 title: "HTB Postman Machine Walkthrough | Easy HackTheBox Guide for Beginners"
-date: 2026-03-24
+date: 2026-03-28
 categories: [The WhyWriteUps]
 tags: [CVE, Linux, CPTS Preparation Track]
 ---
