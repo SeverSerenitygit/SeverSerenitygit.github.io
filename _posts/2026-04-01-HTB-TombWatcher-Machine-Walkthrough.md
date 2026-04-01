@@ -1,6 +1,6 @@
 ---
 title: "HTB TombWatcher Machine Walkthrough | Easy HackTheBox Guide for Beginners"
-date: 2026-03-31
+date: 2026-04-01
 categories: [The WhyWriteUps]
 tags: [AD, CPTS Preparation]
 ---
