@@ -2,7 +2,7 @@
 title: "HTB Pov Machine Walkthrough | Easy HackTheBox Guide for Beginners"
 date: 2026-03-31
 categories: [The WhyWriteUps]
-tags: [Windows, CPTS Preparation]
+tags: [Windows, CPTS Preparation Track]
 ---
 
 Welcome to the **WhyWriteUps** articles, where we explain every step we made and why we made it. I have been solving machines for quite a bit of time, and most of the walkthroughs I have ever read are just commands and I think that most of the people who are reading those walkthroughs do not understand the commands they are using, so I wanted to fix that. I want beginners to understand what they are doing and why they are doing it.
