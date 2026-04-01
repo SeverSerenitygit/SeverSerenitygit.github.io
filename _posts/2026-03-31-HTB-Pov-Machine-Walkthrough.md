@@ -73,7 +73,7 @@ We can see that just giving the path to the file will read the file, and we can 
 
 ## ViewState Deserialization attack
 
-ASP.NET's ViewState mechanism is designed to preserve page state between requests. By default, it uses keys defined in `web.config` — specifically validationKey and decryptionKey under the <machineKey> element — to sign and encrypt ViewState payloads, ensuring they can't be tampered with. However, if those keys are ever exposed, an attacker can use a tool like `ysoserial.net` to forge a validly signed ViewState payload containing a malicious .NET gadget chain, leading to Remote Code Execution. This is a case of insecure deserialization (`CWE-502`) made possible by the key leak. So our next step is to read `web.config` to extract those keys — it should be at the web root, meaning we just need to go up one directory from our current path.
+ASP.NET's ViewState mechanism is designed to preserve page state between requests. By default, it uses keys defined in `web.config` — specifically validationKey and decryptionKey under the `<machineKey>` element — to sign and encrypt ViewState payloads, ensuring they can't be tampered with. However, if those keys are ever exposed, an attacker can use a tool like `ysoserial.net` to forge a validly signed ViewState payload containing a malicious .NET gadget chain, leading to Remote Code Execution. This is a case of insecure deserialization `CWE-502` made possible by the key leak. So our next step is to read `web.config` to extract those keys — it should be at the web root, meaning we just need to go up one directory from our current path.
 
 ![](assets/img/Pov_web.config.png)
 
