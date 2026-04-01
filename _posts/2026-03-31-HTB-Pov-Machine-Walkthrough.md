@@ -41,7 +41,7 @@ Breakdown of the command:
 
 `-oA Pov` - saves the result in all three formats under `Pov` name.
 
-`-min-rate=5000` - No slower rate than 5000 packets per second (pretty fast)
+`-min-rate=5000` - No slower rate than 5000 packets per second (pretty fast).
 
 ![](assets/img/Pov_Nmap.png)
 
