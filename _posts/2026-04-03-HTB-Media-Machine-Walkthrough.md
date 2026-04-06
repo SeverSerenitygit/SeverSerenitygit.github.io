@@ -271,7 +271,7 @@ Checking the privileges again we can see that we got `SeImpersonatePrivilege` pr
 While SeImpersonatePrivilege exploitation is covered in the CPTS path, the token restriction behavior of service accounts and the use of FullPowers to recover stripped privileges goes beyond the module content and is worth exploring independently via the this [blog](https://itm4n.github.io/localservice-privileges/)
 
 
-*This write-up is part of my *WhyWriteUps* series — where I share not only the steps I took, but the lessons I learned along the way.*  
+This write-up is part of my *WhyWriteUps* series — where I share not only the steps I took, but the lessons I learned along the way.  
 If you enjoyed this walkthrough of **HTB Media**, stick around for more boxes and stories. We all start somewhere — this is just the beginning.
 
 ━━━━━━━━━━━━━━  
