@@ -539,5 +539,3 @@ If you enjoyed this walkthrough of **HTB Administrator**, stick around for more 
 **WhyWriteUps**  
 Learn. Hack. Share.  
 ━━━━━━━━━━━━━━
-
-By [SeverSerenity](https://medium.com/@SeverSerenity) on [August 19, 2025](https://medium.com/p/f8273a004044).
