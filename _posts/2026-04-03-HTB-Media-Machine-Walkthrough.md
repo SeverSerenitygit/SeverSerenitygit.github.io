@@ -56,6 +56,8 @@ Since we know that they are going to play the video with Windows Media Player, t
 > Windows automatically tries to connect to Remote Server mentioned in UNC path no matter the application or service it is by design how file sharing works in Windows, and Windows will also automatically sends the NTLM hash of the user who send it if there no protections in place against this actions.
 {: .prompt-info }
 
+## Hash capture via UNC path
+
 But not every file allows us to specify a UNC path. `.wax` and `.asx` are file types that allow us to specify the location of the audio file, so let's give our localhost IP address to the location and see if we get a connection. 
 
 ```plaintext
@@ -101,7 +103,7 @@ enox@MEDIA C:\Users\enox>type Desktop\user.txt
 e135a27613c0f4ab<REDACTED>
 ```
 
-While exact attack like this isn't shown in any of the CPTS modules, conceptual very similar attack using the same UNC path but with different file type is shown in Fluffy Machine.
+While an exact attack like this isn't shown in any of the CPTS modules, a conceptually very similar attack using the same UNC path but with a different file type is shown in [Windows Privilege Escalation -> Interacting with users](https://academy.hackthebox.com/app/module/67/section/630) and if you want to practice this technique more, you can do Fluffy Machine.
 
 ## Arbitrary File Write via Junction 
 
@@ -207,6 +209,8 @@ nt authority\local service
 
 As you can see, we got reverse shell as the `nt authority\local service`
 
+This technique goes beyond what is explicitly covered in the CPTS path. The Junction-based file write primitive is an independent research area.
+
 ## Abusing `SeTcbPrivilege` privilege
 
 checking the user's privileges using `whoami /priv` we can see a powerful privilege we can abuse:
@@ -245,7 +249,7 @@ net localgroup Administrators
 
 once confirmed, reconnect to SSH service as the `enox` user and we can read the root.txt from `C:\Users\Administrator\Desktop\root.txt`.
 
-The Junction attack itself isn't explicitly demonstrated in any single CPTS module, but the underlying concepts — NTFS permissions, file upload abuse, and Windows symlink behavior — are covered across the Windows Privilege Escalation and Web Attacks modules. This box tests your ability to chain these concepts together independently.
+While CPTS Path hasn't shown exploitation of privilege like `SeTcbPrivilege` it is always worth it to see what non-default privileges we have and try to exploit them. Also, exploitation of this privilege is worth adding to your notes. Exploitation of `SeImpersonatePrivilege` and other common privileges is shown in [Windows Privilege Escalation](https://academy.hackthebox.com/app/module/67) -> Windows User Privileges.
 
 ## Alternative Privilege Escalation
 
@@ -264,4 +268,13 @@ Checking the privileges again we can see that we got `SeImpersonatePrivilege` pr
 .\GodPotato-NET4.exe -cmd '<command>'
 ```
 
-While CPTS Path hasn't shown exploitation of privilege like `SeTcbPrivilege` it is always worth it to see what non-default privileges we have and try to exploit them. Also, exploitation of this privilege is worth adding to your notes. Exploitation of `SeImpersonatePrivilege` and other common privileges is shown in [Windows Privilege Escalation](https://academy.hackthebox.com/app/module/67) -> Windows User Privileges.
+While SeImpersonatePrivilege exploitation is covered in the CPTS path, the token restriction behavior of service accounts and the use of FullPowers to recover stripped privileges goes beyond the module content and is worth exploring independently via the this [blog](https://itm4n.github.io/localservice-privileges/)
+
+
+*This write-up is part of my *WhyWriteUps* series — where I share not only the steps I took, but the lessons I learned along the way.*  
+If you enjoyed this walkthrough of **HTB Media**, stick around for more boxes and stories. We all start somewhere — this is just the beginning.
+
+━━━━━━━━━━━━━━  
+**WhyWriteUps**  
+Learn. Hack. Share.  
+━━━━━━━━━━━━━━
