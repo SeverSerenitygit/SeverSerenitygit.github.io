@@ -328,7 +328,7 @@ Breakdown of command:
 
 `add groupMember infrastructure alfred`:
 
-`add` — we are performing write operation, usually this operation requries us `Writemember` or `GenericWrite`, but if we are adding ourselves to the group `addself` ACE is enough
+`add` — we are performing write operation, usually this operation requires us `Writemember` or `GenericWrite`, but if we are adding ourselves to the group `addself` ACE is enough
 
 `groupMember` — With this argument we are going to specify which group we want to add ourselves into.
 
