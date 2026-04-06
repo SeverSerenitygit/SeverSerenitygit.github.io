@@ -251,7 +251,7 @@ It will instantly crack us the password.
 
 ![](https://cdn-images-1.medium.com/max/800/1*_ycvYqwAyHr__Ge0zRO4jw.png)
 
-Now we know that the user `alfred` uses the password basketball, let’s see what ACEs the `alfred` user has.
+Now we know that the user `alfred` uses the password `basketball`, let’s see what ACEs the `alfred` user has.
 
 ## Abusing Addself ACE
 
@@ -533,7 +533,9 @@ evil-winrm -i 10.10.11.72 -u john -p NewPassw0rd!
 
 Now, we got the `user.txt`.
 
-## Privilege escalation
+While these DACL misconfiguration abuse chains are not explicitly walked through in the CPTS modules, the path equips you with enough foundational knowledge to identify, research, and exploit misconfigured ACEs independently. In practice, most of these misconfigurations can be abused using tools like `netexec`, `bloodyAD`, or ACE-specific tooling and bloodhound itself shows how to abuse ACE.
+
+## Restoring Tombstoned user
 
 Now, from BloodHound, we can see that user john has GenericAll over `ADCS` organization unit, but the unit does not contain any users or groups, which seems to be pretty useless.
 
@@ -565,8 +567,6 @@ Breakdown of command:
 By default, `Get-ADObject` won’t return deleted objects because they are in a hidden container, but by using `-IncludeDeletedObjects`, we are telling it to include the objects inside the container.
 
 ![](https://cdn-images-1.medium.com/max/800/1*QuUx1-gE6nZJoJEt6RoHTQ.png)
-
-## Restoring Tombstoned user
 
 We can see that the user `cert_admin` is tombstoned. This user very likely lives inside the ADCS organization unit, because of its name, and if it is true, we will be able to recover this user and probably perform some certificate attack. We will use this command to restore the user.
 
@@ -657,6 +657,10 @@ Just start from the beginning of restoring the user.
 
 ![](https://cdn-images-1.medium.com/max/800/1*vz_BQt33M7jJCBo8kjbktg.png)
 
+This technique is not covered in the CPTS path and goes beyond the module content — readers are encouraged to research AD object restoration and the Recycle Bin feature independently.
+
+## ESC15 
+
 Now, let’s check the certificate templates for any vulnerabilities as the new user `cert_admin`.
 
 ```bash
@@ -733,6 +737,8 @@ evil-winrm -i 10.10.11.72 -u administrator -p NewPassw0rd!
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*qjT4_0GZ5zRHmnrEYtPWgg.png)
+
+ESC15 is not covered in the CPTS modules. It is a relatively recently discovered ADCS misconfiguration and goes beyond the current module content — readers are encouraged to research it independently through resources like [y4k's research](https://github.com/ly4k/Certipy) or the original ESC15 writeups.
 
 ### Closing
 
