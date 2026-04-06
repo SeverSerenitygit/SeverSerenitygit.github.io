@@ -535,6 +535,8 @@ Now, we got the `user.txt`.
 
 While these DACL misconfiguration abuse chains are not explicitly walked through in the CPTS modules, the path equips you with enough foundational knowledge to identify, research, and exploit misconfigured ACEs independently. In practice, most of these misconfigurations can be abused using tools like `netexec`, `bloodyAD`, or ACE-specific tooling and bloodhound itself shows how to abuse ACE.
 
+there are a few examples of abusing ACEs in [Active Directory Enumeration & Attacks -> ACL Abuse tactics](https://academy.hackthebox.com/app/module/143/section/1486)
+
 ## Restoring Tombstoned user
 
 Now, from BloodHound, we can see that user john has GenericAll over `ADCS` organization unit, but the unit does not contain any users or groups, which seems to be pretty useless.
