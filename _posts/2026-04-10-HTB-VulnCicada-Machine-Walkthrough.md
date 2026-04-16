@@ -15,6 +15,8 @@ Since this box is part of the CPTS Preparation Track, I have included references
 
 VulnCicada is a Medium Windows Active Directory machine that involves discovering a password inside an image on a public share. With that password an attacker is able to discover that the machine is vulnerable to ESC8 and can use Kerberos relaying to bypass self-relay restrictions in order to get a certificate as the machine account itself. With this new certificate, we are able to dump the hashes of the Administrator user and thus compromise the whole domain.
 
+## Enumeration
+
 We will start our enumeration by `ping` command to check if the host is alive.
 
 ```bash
