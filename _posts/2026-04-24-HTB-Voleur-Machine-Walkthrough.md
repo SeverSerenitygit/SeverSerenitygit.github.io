@@ -708,7 +708,7 @@ credentials and how the SYSTEM hive's boot key is required to decrypt it offline
 
 This write-up is part of my *WhyWriteUps* series — where I share not only the steps I took, but the lessons I learned along the
 way.  
-If you enjoyed this walkthrough of **HTB Voleur **, stick around for more boxes and stories. We all start somewhere — this is just
+If you enjoyed this walkthrough of **HTB Voleur**, stick around for more boxes and stories. We all start somewhere — this is just
 the beginning.
 
 ━━━━━━━━━━━━━━  
