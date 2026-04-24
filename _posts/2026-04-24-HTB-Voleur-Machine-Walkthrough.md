@@ -302,14 +302,15 @@ We can see that the `svc_ldap` user has the `WriteSPN` privilege that allows us 
 can also see that the `svc_ldap` is a member of the `Restore_users` group, but we will discuss this right after we get the
 `svc_winrm`.
 
-Cracking Password-Protected files is a technique covered in [Password Attacks -> Introduction to the John the Ripper](https://academy.hackthebox.com/app/module/147/section/1985) and BloodHound enumeration is covered in the [Active Directory Enumeration & Attacks
+Cracking Password-Protected files is a technique covered in [Password Attacks -> Introduction to the John the Ripper](https://academy.hackthebox.com/app/module/147/section/1985) and
+BloodHound enumeration is covered in the [Active Directory Enumeration & Attacks
 (https://academy.hackthebox.com/app/module/143) module, which walks through both data collection and visualizing attack paths in the
 BloodHound GUI.
 
 ## Performing Targeted Kerberoasting attack
 
-So instead of manually adding SPN for the user and requesting a ticket for it, we will just use [targetedKerberoast](https://
-github.com/ShutdownRepo/targetedKerberoast) tool to automate it.
+So instead of manually adding SPN for the user and requesting a ticket for it, we will just use [targetedKerberoast](https://github.com/ShutdownRepo/targetedKerberoast) tool to
+automate it.
 
 Installation:
 
@@ -318,8 +319,7 @@ git clone https://github.com/ShutdownRepo/targetedKerberoast
 pip3 install -r requirements.txt
 ```
 
-But to do so, we might need to create a virtual Python environment, which we can see how to do [here](https://www.geeksforgeeks
-org/python/creating-python-virtual-environment-windows-linux/)
+But to do so, we might need to create a virtual Python environment, which we can see how to do [here](https://www.geeksforgeeks.org/python/creating-python-virtual-environment-windows-linux/)
 
 Once installed, we will use this command to perform the attack:
 
@@ -355,8 +355,7 @@ Have SPNs set, producing hashes you can crack offline.
 We can see that we got hash for two users `svc_winrm` the user wanted and `lacey.miller` which we also has `GenericWrite`
 Privilege over, which also includes `WriteSPN`.
 
-Let's save them to a file and try to crack it using `hashcat`. We will use [rockyou.txt](https://github.com/danielmiessler
-SecLists/blob/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz) wordlist.
+Let's save them to a file and try to crack it using `hashcat`. We will use [rockyou.txt](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz) wordlist.
 
 ```bash
 hashcat -m 13100 svc_winrm.hash /home/serenity/wordlists/rockyou.txt
@@ -403,8 +402,7 @@ We earlier saw that our user `svc_ldap` is a member of `restore_users` which is 
 members of this group, most likely has privileges to restore users. This might only be allowed for `Second-Line Support Technicians`
 Organization Unit since we have `GenericWrite` over this OU.
 
-But firstly, let's get a shell as `svc_ldap` to be able to perform those actions. To do so, we will be using [RunasCs](https://github
-com/antonioCoco/RunasCs/releases/tag/v1.5) allows us to get a shell if we have cleartext credentials for a user. Firstly, let's
+But firstly, let's get a shell as `svc_ldap` to be able to perform those actions. To do so, we will be using [RunasCs](https://github.com/antonioCoco/RunasCs/releases/tag/v1.5) allows us to get a shell if we have cleartext credentials for a user. Firstly, let's
 Install the binary and transfer it to the target, and then run this command in the `Evil-WinRM` shell:
 
 ```powershell
@@ -589,8 +587,7 @@ This outputted us credentials for `jeremy.combs` domain user, this user is membe
 access than other users because the user is Third-Line Support Technician. let's request TGT for this user, export it and use
 `evil-winrm` to connect to the target.
 
-DPAPI credential extraction is covered in the [Password Attacks -> Attacking Windows Credential Manager](https://academy.hackthebox
-com/app/module/147/section/3714) module of HTB Academy. The module walks through how Windows protects credentials using the Data
+DPAPI credential extraction is covered in the [Password Attacks -> Attacking Windows Credential Manager](https://academy.hackthebox.com/app/module/147/section/3714) module of HTB Academy. The module walks through how Windows protects credentials using the Data
 Protection API, locating master keys and credential blobs, and decrypting them using the user's plaintext password with impacket.
 
 
