@@ -302,8 +302,7 @@ We can see that the `svc_ldap` user has the `WriteSPN` privilege that allows us 
 can also see that the `svc_ldap` is a member of the `Restore_users` group, but we will discuss this right after we get the
 `svc_winrm`.
 
-Cracking Password-Protected files is a technique covered in [Password Attacks -> Introduction to the John the Ripper](https://academy
-hackthebox.com/app/module/147/section/1985) and BloodHound enumeration is covered in the [Active Directory Enumeration & Attacks
+Cracking Password-Protected files is a technique covered in [Password Attacks -> Introduction to the John the Ripper](https://academy.hackthebox.com/app/module/147/section/1985) and BloodHound enumeration is covered in the [Active Directory Enumeration & Attacks
 (https://academy.hackthebox.com/app/module/143) module, which walks through both data collection and visualizing attack paths in the
 BloodHound GUI.
 
@@ -394,8 +393,7 @@ Mode                 LastWriteTime         Length Name
 
 We can read `user.txt` from here.
 
-Targeted Kerberoasting is covered in the [Active Directory Enumeration & Attacks -> Kerberoasting from Linux](https://academy
-hackthebox.com/app/module/143/section/1274) module of HTB Academy, specifically the Kerberoasting section. The "targeted" variant
+Targeted Kerberoasting is covered in the [Active Directory Enumeration & Attacks -> Kerberoasting from Linux](https://academy.hackthebox.com/app/module/143/section/1274) module of HTB Academy, specifically the Kerberoasting section. The "targeted" variant
 goes a step further — instead of roasting all accounts with SPNs, it temporarily assigns an SPN to a specific account you have write
 privileges over, requests its ticket, then removes the SPN afterward.
 
@@ -708,8 +706,7 @@ Breakdown of the command:
 
 `LOCAL` — tells secretsdump to work offline on local files rather than connecting to a remote target
 
-Extracting and decrypting ntds.dit is covered in the [Password Attacks -> Attacking Active Directory and NTDS.dit](https://academy
-hackthebox.com/app/module/147/section/1326) module of HTB Academy. The module explains how ntds.dit stores all domain user
+Extracting and decrypting ntds.dit is covered in the [Password Attacks -> Attacking Active Directory and NTDS.dit](https://academy.hackthebox.com/app/module/147/section/1326) module of HTB Academy. The module explains how ntds.dit stores all domain user
 credentials and how the SYSTEM hive's boot key is required to decrypt it offline using impacket-secretsdump.
 
 This write-up is part of my *WhyWriteUps* series — where I share not only the steps I took, but the lessons I learned along the
