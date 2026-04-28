@@ -111,8 +111,7 @@ ldapsearch -H ldap://htb.local -x -b "DC=htb,DC=local" -s sub "(&(objectclass=us
 
 ## AS-REP Roasting
 
-Let's instead try AS-REP Roasting. The attack is explained in depth in this [article](https://medium.com
-bugbountywriteupas-rep-roasting-1f83be96e736). We can do that using `impacket-GetNPUsers` tool.
+Let's instead try AS-REP Roasting. The attack is explained in depth in this [article](https://medium.com/@SeverSerenity/as-rep-roasting-1f83be96e736). We can do that using `impacket-GetNPUsers` tool.
 
 ```bash
 impacket-GetNPUsers -dc-ip htb.local -request 'htb.local/' -format hashcat
